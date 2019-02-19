@@ -18,12 +18,12 @@ import itertools
 import pacmanPlot
 import graphicsUtils
 import util
-
+from testbench import function
 # You may add any helper functions you would like here:
 # def somethingUseful():
 #     return True
 
-
+# def down_dimension()
 
 def findIntersections(constraints):
     """
@@ -45,7 +45,9 @@ def findIntersections(constraints):
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    return function(constraints)
+
+
 
 def findFeasibleIntersections(constraints):
     """
