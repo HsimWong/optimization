@@ -148,7 +148,14 @@ def wordProblemLP():
 
 	"""
 	"*** YOUR CODE HERE ***"
-	util.raiseNotDefined()
+	constraints = [((-1, 0), -20), ((0, -1), -15.5), ((2.5, 2.5), 100), ((0.5, 0.25), 50)]
+	cost = (-7, -4)
+
+	res = solveLP(constraints, cost)
+	# print(tuple(res[0]))
+	# print(-res[1])
+	return (tuple(res[0]), -res[1])
+	# util.raiseNotDefined()
 
 
 def solveIP(constraints, cost):
@@ -248,20 +255,4 @@ def foodDistribution(truck_limit, W, C, T):
 
 
 if __name__ == "__main__":
-
-	constraints = [ ((-1, -3), -30),\
-  ((-3, 2), 30),\
-  ((1, -3), 30),\
-  ((1, 3), -30) ]
-	# constraints = [((3, 2), 10),((1, -9), 8),((-3, 2), 40),((-3, -1), 20)]
-	inter = findIntersections(constraints)
-	# print(inter)
-	print()
-	valid = findFeasibleIntersections(constraints)
-	# print(valid)
-	print()
-	print(solveLP(constraints, (3,5)))
-	print()
-	print(solveIP(constraints, (3,5)))
-	print()
-	print(wordProblemIP())
+	wordProblemLP()
