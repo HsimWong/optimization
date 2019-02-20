@@ -1,10 +1,18 @@
 import numpy as np 
 
-def find_one_intersection(package):
+
+def get_A_b(package):
 	A = []; b = []; 
+	# print( package)
 	for line in package:
+		# print(line[0])
 		A.append(list(line[0]))
+
 		b.append(line[1])
+	return A, b
+
+def find_one_intersection(package):
+	A,b = get_A_b(package)
 	# print(np.array(A).shape)
 	if np.linalg.matrix_rank(A) == len(A[0]):
 		result = (np.linalg.solve(A, b))
@@ -53,6 +61,10 @@ def get_packages(constraints):
 			packages.append(append_package(constraints, index_ptr))
 	# print(packages)
 	return packages
+
+# def point_if_feasible(point, constraints):
+# 	for strict in constraints:
+# 		if (np.dot(strict[0], point) < strict[1])
 
 
 if __name__ == '__main__':
