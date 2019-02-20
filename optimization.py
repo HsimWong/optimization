@@ -48,8 +48,6 @@ def findIntersections(constraints):
 	"*** YOUR CODE HERE ***"
 	return function(constraints)
 
-
-
 def findFeasibleIntersections(constraints):
 	"""
 	Given a list of linear inequality constraints, return a list all
@@ -90,8 +88,6 @@ def findFeasibleIntersections(constraints):
 			pass
 	return valid_points
 
-
-
 def solveLP(constraints, cost):
 	"""
 	Given a list of linear inequality constraints and a cost vector,
@@ -119,7 +115,21 @@ def solveLP(constraints, cost):
 
 	"""
 	"*** YOUR CODE HERE ***"
-	util.raiseNotDefined()
+	valid_points = findFeasibleIntersections(constraints)
+	# print(valid_points[0])
+	min_point = []; min_value = 65535
+	for point in valid_points:
+		value = np.dot(point, cost)
+		# print(value)
+		if value < min_value:
+			min_point = point 
+			min_value = value
+
+	# print(min_value)
+	if min_point == []:
+		return None
+	else:
+		return min_point, min_value
 
 def wordProblemLP():
 	"""
@@ -238,12 +248,17 @@ def foodDistribution(truck_limit, W, C, T):
 
 
 if __name__ == "__main__":
-	constraints = [((3, 2), 10),((1, -9), 8),((-3, 2), 40),((-3, -1), 20)]
+
+	constraints = [ ((-1, -3), -30),\
+  ((-3, 2), 30),\
+  ((1, -3), 30),\
+  ((1, 3), -30) ]
+	# constraints = [((3, 2), 10),((1, -9), 8),((-3, 2), 40),((-3, -1), 20)]
 	inter = findIntersections(constraints)
 	# print(inter)
 	print()
 	valid = findFeasibleIntersections(constraints)
-	print(valid)
+	# print(valid)
 	print()
 	print(solveLP(constraints, (3,5)))
 	print()

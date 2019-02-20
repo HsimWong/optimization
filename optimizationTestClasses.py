@@ -441,6 +441,8 @@ class PointObjTest(testClasses.TestCase):
         if solution is not None:
             numDims = len(solution[0])
             result_point = result[0]
+            print ("result_point", end = "")
+            print(result_point)
             if len(result_point) != numDims:
                 return self.fail(grades, moduleDict, result, solution)
 
