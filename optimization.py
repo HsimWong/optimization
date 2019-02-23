@@ -203,11 +203,11 @@ def solveIP(constraints, cost):
 	if bnb.bnb(constraints, cost) == None:
 		return None
 	cst, opt_point, opt_cost = bnb.bnb(constraints, cost)
-	print(opt_point)
-	print("_____________")
+	# print(opt_point)
+	# print("_____________")
 	opt_cost = np.dot(opt_point, cost)
 	return tuple(opt_point), opt_cost
-	util.raiseNotDefined()
+	# util.raiseNotDefined()
 
 def wordProblemIP():
 	"""
@@ -279,8 +279,9 @@ def foodDistribution(truck_limit, W, C, T):
 if __name__ == "__main__":
 	constraints =[((-1,-1,-1,0,0,0), -15),
 	((0,0,0,-1,-1,-1), -30),
-	((1.2,1.3,1.1,0,0,0),30),
-	((0,0,0,1.2,1.3,1.1),30),
+
+	((1/1.2,1/1.3,1/1.1,0,0,0),30),
+	((0,0,0,1/1.2,1/1.3,1/1.1),30),
 	((-1,0,0,0,0,0), 0),
 	((0,-1,0,0,0,0), 0),
 	((0,0,-1,0,0,0), 0),
@@ -291,9 +292,7 @@ if __name__ == "__main__":
 	cost=(12,4,2,20,5,1)
 	inters = findIntersections(constraints)
 	for i in inters:
-		if abs(i[0] - 0) <= 0.0001 and abs(i[1] - 0) <= 0.000001:
-			i[0] = 0
-			i[1] = 0
-			print("_______________________")
-			print(i)
-	print(findFeasibleIntersections(constraints))
+		print(i)
+			# print("_______________________")
+			# print(i)
+	# print(findFeasibleIntersections(constraints))

@@ -60,7 +60,7 @@ def get_packages(constraints):
 				if ptr[i] == 1:
 					index_ptr.append(i)
 
-			print(index_ptr)
+			# print(index_ptr)
 			packages.append(append_package(constraints, index_ptr))
 	# print(packages)
 	return packages

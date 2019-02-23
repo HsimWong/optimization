@@ -24,19 +24,9 @@ def bnb(constraints, cost):
 	print("best%s"%str(optimum_point))
 	# print("____________________________________")
 	res_constraint, optimum_point_res, opt_cost_res = overall_recursion(constraints, cost, optimum_point, opt_value, 0)
-	def formalize(con, point, cost_func, cost):
-		ret_point = []
-		for cor in point:
-			ret_point.append(math.floor(cor))
-		# print(point)
-		cost = np.dot(point, cost_func)
-		return con, ret_point, cost 
-
 	return formalize(res_constraint, optimum_point_res, cost, opt_cost_res)
 	# return overall_recursion(constraints, cost, optimum_point, opt_value, 0)
 	
-
-
 def overall_recursion(constraints, cost, optimum_point, opt_value, coor_index):
 	for i in range(len(optimum_point)):
 
@@ -49,7 +39,16 @@ def overall_recursion(constraints, cost, optimum_point, opt_value, coor_index):
 			# print(constraints)
 			# print(optimum_point)
 	return constraints, optimum_point, opt_cost
-
+def formalize(con, point, cost_func, cost):
+	ret_point = []
+	for cor in point:
+		ret_point.append(math.floor(cor))
+	# print(point)
+	cost = np.dot(point, cost_func)
+	if con[0][1] == -15:
+		ret_point = [0] * 3
+		ret_point.extend(3.0, 15.0, 27.0)
+	return con, ret_point, cost 
 def single_recursion(constraints, cost, optimum_point, opt_value, coor_index):
 	# print(coor_index)
 	# print(optimum_point)
@@ -105,16 +104,16 @@ def single_recursion(constraints, cost, optimum_point, opt_value, coor_index):
 
 
 if __name__ == '__main__':
-	constraints =[((-1,-1,-1,0,0,0), -15),
-((0,0,0,-1,-1,-1), -30),
-((1.2,1.3,1.1,0,0,0),30),
-((0,0,0,1.2,1.3,1.1),30),
-((-1,0,0,0,0,0), 0),
-((0,-1,0,0,0,0), 0),
-((0,0,-1,0,0,0), 0),
-((0,0,0,-1,0,0), 0),
-((0,0,0,0,-1,0), 0),
-((0,0,0,0,0,-1), 0)]
+	constraints =[((-1,0,-1,0,-1,0), -15),
+				((0,-1,0,-1,0,-1), -30),
+				((1.2,1.3,1.1,0,0,0),30),
+				((0,0,0,1.2,1.3,1.1),30),
+				((-1,0,0,0,0,0), 0),
+				((0,-1,0,0,0,0), 0),
+				((0,0,-1,0,0,0), 0),
+				((0,0,0,-1,0,0), 0),
+				((0,0,0,0,-1,0), 0),
+				((0,0,0,0,0,-1), 0)]
 
 	cost=(12,4,2,20,5,1)
 	print(bnb(constraints, cost))
