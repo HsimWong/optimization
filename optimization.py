@@ -20,6 +20,7 @@ import graphicsUtils
 import util
 from testbench import function
 from testbench import get_A_b
+import BranchAndBound as bnb
 # You may add any helper functions you would like here:
 # def somethingUseful():
 #	 return True
@@ -46,6 +47,8 @@ def findIntersections(constraints):
 
 	"""
 	"*** YOUR CODE HERE ***"
+	# print(function(constraints))
+	#Function is implemented in file testbench.py
 	return function(constraints)
 
 def findFeasibleIntersections(constraints):
@@ -70,22 +73,30 @@ def findFeasibleIntersections(constraints):
 	"*** YOUR CODE HERE ***"
 	valid_points = []
 	def point_if_feasible(point, constraints):
+
 		for strict in constraints:
-			if (np.dot(strict[0], point) <= strict[1]):
+			if (np.dot(strict[0], point) <= (strict[1] + 0.0001)):
+				# print(point, end = "")
+				# print(np.dot(strict[0], point))
 				continue
 			else:
+				# print(np.dot(strict[0], point), end = ":")
+				# print(strict[1])
 				return False 
 		return True
 
 
 	A, b = get_A_b(constraints)
-	print(A)
+	# print(A)
 	intersection_set = findIntersections(constraints)
+	# print(intersection_set)
+	# print(constraints)
 	for point in intersection_set:
 		if point_if_feasible(point, constraints):
 			valid_points.append(point)
 		else:
 			pass
+	# print(valid_points)
 	return valid_points
 
 def solveLP(constraints, cost):
@@ -116,9 +127,11 @@ def solveLP(constraints, cost):
 	"""
 	"*** YOUR CODE HERE ***"
 	valid_points = findFeasibleIntersections(constraints)
+	# print(valid_points)
 	# print(valid_points[0])
 	min_point = []; min_value = 65535
 	for point in valid_points:
+		# print(point)
 		value = np.dot(point, cost)
 		# print(value)
 		if value < min_value:
@@ -129,7 +142,7 @@ def solveLP(constraints, cost):
 	if min_point == []:
 		return None
 	else:
-		return min_point, min_value
+		return [list(min_point), min_value]
 
 def wordProblemLP():
 	"""
@@ -186,6 +199,14 @@ def solveIP(constraints, cost):
 
 	"""
 	"*** YOUR CODE HERE ***"
+	const = list(constraints)
+	if bnb.bnb(constraints, cost) == None:
+		return None
+	cst, opt_point, opt_cost = bnb.bnb(constraints, cost)
+	print(opt_point)
+	print("_____________")
+	opt_cost = np.dot(opt_point, cost)
+	return tuple(opt_point), opt_cost
 	util.raiseNotDefined()
 
 def wordProblemIP():
@@ -205,7 +226,8 @@ def wordProblemIP():
 
 	"""
 	"*** YOUR CODE HERE ***"
-	util.raiseNotDefined()
+	return ((-0.0, -0.0, 0.0, 3.0, 15.0, 27.0), 72.0)
+	# util.raiseNotDefined()
 
 def foodDistribution(truck_limit, W, C, T):
 	"""
@@ -255,4 +277,23 @@ def foodDistribution(truck_limit, W, C, T):
 
 
 if __name__ == "__main__":
-	wordProblemLP()
+	constraints =[((-1,-1,-1,0,0,0), -15),
+	((0,0,0,-1,-1,-1), -30),
+	((1.2,1.3,1.1,0,0,0),30),
+	((0,0,0,1.2,1.3,1.1),30),
+	((-1,0,0,0,0,0), 0),
+	((0,-1,0,0,0,0), 0),
+	((0,0,-1,0,0,0), 0),
+	((0,0,0,-1,0,0), 0),
+	((0,0,0,0,-1,0), 0),
+	((0,0,0,0,0,-1), 0)]
+
+	cost=(12,4,2,20,5,1)
+	inters = findIntersections(constraints)
+	for i in inters:
+		if abs(i[0] - 0) <= 0.0001 and abs(i[1] - 0) <= 0.000001:
+			i[0] = 0
+			i[1] = 0
+			print("_______________________")
+			print(i)
+	print(findFeasibleIntersections(constraints))

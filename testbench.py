@@ -30,10 +30,13 @@ def function(constraints):
 	for package in packages:
 		# print(package)
 		res = find_one_intersection(package)
+		# print (res)
 		# print(res)
-		if not res == -1:
+		if not (res) == -1:
 			inter_points.append(res)
-	return list(inter_points)
+	# print("Yes")
+	# print(inter_points)
+	return inter_points
 
 def append_package(constraints, index_ptr):
 	ret_array = []
@@ -57,7 +60,7 @@ def get_packages(constraints):
 				if ptr[i] == 1:
 					index_ptr.append(i)
 
-			# print(index_ptr)
+			print(index_ptr)
 			packages.append(append_package(constraints, index_ptr))
 	# print(packages)
 	return packages
@@ -70,6 +73,16 @@ def get_packages(constraints):
 if __name__ == '__main__':
 	# print(get_packages([((1,1),0), ((-2,1),1), ((1, 3), 8)]))
 	# print(ptr_cnt([3,4,5],6, 1, False))
-	print(function([((1, 0), 10), ((0, 1), 10), ((-1, 0), 0), ((0, -1), 0)]))
+	print(function([((-1,-1,-1,0,0,0), -15),
+((0,0,0,-1,-1,-1), -30),
+((1.2,1.3,1.1,0,0,0),30),
+((0,0,0,1.2,1.3,1.1),30),
+((-1,0,0,0,0,0), 0),
+((0,-1,0,0,0,0), 0),
+((0,0,-1,0,0,0), 0),
+((0,0,0,-1,0,0), 0),
+((0,0,0,0,-1,0), 0),
+((0,0,0,0,0,-1), 0)]
+))
 	# print(find_one_intersection([((0,1),10), ((-1, 0),0)]))
 	# print(get_packages([((1, 0), 10), ((0, 1), 10), ((-1, 0), 0), ((0, -1), 0)]))
